@@ -1,0 +1,74 @@
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+    <h3 class="display-3 font-weight-bold text-white">Edit Class</h3>
+    <div class="d-inline-flex text-white">
+      <p class="m-0"><a class="text-white" [routerLink]="['/dashboard']" >Home</a></p>
+      <p class="m-0 px-2">/</p>
+      <p class="m-0">Edit Class</p>
+    </div>
+  </div>
+</div>
+<!-- Header End -->
+
+<div class="container-fluid pt-5">
+  <div class="container">
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-lg-6 mb-5">
+          <div class="form-group">
+            <label for="teacher">Teacher</label>
+            <input id="teacher" type="text" class="form-control" name="teacher" [(ngModel)]="teacher.user.username" required disabled />
+          </div>
+          <div class="form-group">
+            <label for="code">Code</label>
+            <input id="code" type="text" class="form-control" name="code" [(ngModel)]="course.code" #code="ngModel"
+                   required disabled/>
+            <div *ngIf="f.submitted && code.invalid">
+              <div *ngIf="['code.errors?.required']">Code is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea rows="6" id="description" type="text" class="form-control" name="description" [(ngModel)]="course.description" #description="ngModel"
+                      required></textarea>
+            <div *ngIf="f.submitted && description.invalid">
+              <div *ngIf="['description.errors?.required']">Description is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-5">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" type="text" class="form-control" name="name" [(ngModel)]="course.name" #name="ngModel"
+                   required />
+            <div *ngIf="f.submitted && name.invalid">
+              <div *ngIf="['name.errors?.required']">Name is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="places">Maximum places</label>
+            <input id="places" type="number" class="form-control" name="places" [(ngModel)]="course.maximumPlaces" #places="ngModel"
+                   required />
+            <div *ngIf="f.submitted && places.invalid">
+              <div *ngIf="['places.errors?.required']">Maximum places is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="numberStudent">Number student</label>
+            <input id="numberStudent" type="number" class="form-control" name="numberStudent" [(ngModel)]="numberOfStudent" #places="ngModel"
+                   disabled/>
+          </div>
+        </div>
+        <button class="btn btn-primary px-4 mx-auto mb-4">Edit class</button>
+        <div *ngIf="f.submitted && isEditClassFailed" class="alert alert-warning">
+          Editing class failed!<br/>{{errorMessage}}
+        </div>
+        <div *ngIf="f.submitted && isClassEdited" class="alert alert-warning">
+          Class successfully edited!<br/>
+        </div>
+      </div>
+    </form>
+    <button class="btn btn-secondary px-4 mx-auto mb-4 " [routerLink]="['/teacherCourses']">Cancel</button>
+  </div>
+</div>

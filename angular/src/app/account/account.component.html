@@ -1,0 +1,66 @@
+<div class="container-fluid pt-5">
+  <div class="container">
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-lg-6 mb-5">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="text" class="form-control" name="email" [(ngModel)]="account.username" #email="ngModel"
+                   required disabled/>
+            <div *ngIf="f.submitted && email.invalid">
+              <div *ngIf="['email.errors?.required']">Email is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <input id="category" type="text" class="form-control" name="category" [(ngModel)]="info.authorities" required disabled/>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-5">
+          <div class="form-group">
+            <label for="firstname">Firstname</label>
+            <input id="firstname" type="text" class="form-control" name="firstname" [(ngModel)]="account.firstname" #firstname="ngModel"
+                   required [disabled]="!editMod"/>
+            <div *ngIf="f.submitted && firstname.invalid">
+              <div *ngIf="['firstname.errors?.required']">Firstname is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastname">Lastname</label>
+            <input id="lastname" type="text" class="form-control" name="lastname" [(ngModel)]="account.lastname" #lastname="ngModel"
+                   required [disabled]="!editMod"/>
+            <div *ngIf="f.submitted && lastname.invalid">
+              <div *ngIf="['lastname.errors?.required']">Lastname is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input id="phone" type="text" class="form-control" name="phone" [(ngModel)]="account.phone" #phone="ngModel"
+                   required [disabled]="!editMod"/>
+            <div *ngIf="f.submitted && phone.invalid">
+              <div *ngIf="['phone.errors?.required']">Phone is required</div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="editMod">
+          <button class="btn btn-primary px-4 mx-auto mb-4">Validate modification</button>
+          <div *ngIf="f.submitted && isModifyFailed" class="alert alert-warning">
+            Modification failed!<br/>{{errorMessage}}
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col-lg-2" *ngIf="!editMod">
+        <button class="btn btn-primary px-4 mx-auto mb-4" (click)="logout()">Logout</button>
+      </div>
+      <div class="col-lg-2" *ngIf="!editMod">
+        <button class="btn btn-secondary px-4 mx-auto mb-4 " (click)="setEditMod(true)">Modify</button>
+      </div>
+      <div *ngIf="editMod">
+        <button class="btn btn-secondary px-4 mx-auto mb-4 " (click)="setEditMod(false)">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+

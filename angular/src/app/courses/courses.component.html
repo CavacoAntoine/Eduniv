@@ -1,0 +1,61 @@
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+    <h3 class="display-3 font-weight-bold text-white">All courses</h3>
+    <div class="d-inline-flex text-white">
+      <p class="m-0"><a class="text-white" href="">Home</a></p>
+      <p class="m-0 px-2">/</p>
+      <p class="m-0">Courses</p>
+    </div>
+  </div>
+</div>
+<!-- Header End -->
+
+<div class="container-fluid pt-5">
+  <div class="container">
+    <div *ngIf="isJoined && !isJoinFailed" class="alert alert-warning">
+      Class successfully joined!<br/>
+    </div>
+    <div *ngIf="!isJoined && isJoinFailed" class="alert alert-warning">
+      Join class failed!<br/>{{errorMessage}}
+    </div>
+    <div *ngIf="isDeleted && !isDeletedFailed" class="alert alert-warning">
+      Class successfully deleted!<br/>
+    </div>
+    <div *ngIf="!isDeleted && isDeletedFailed" class="alert alert-warning">
+      Deleting class failed!<br/>{{errorMessage}}
+    </div>
+    <label for="search">Find your with the search bar</label>
+    <input type="text" class="form-control mb-3" id="search" placeholder="Looking for a course ?" (keyup)="search($event)"/>
+    <div class="row">
+      <div *ngFor="let course of searchCourse" class="col-lg-4 mb-5">
+        <div class="card border-0 bg-light shadow-sm pb-2">
+          <div class="card-body text-center">
+            <h4 class="card-title">{{course.name}}</h4>
+            <p class="card-text">{{course.description}}</p>
+          </div>
+          <div class="card-footer bg-transparent py-4 px-5">
+            <div class="row border-bottom">
+              <div class="col-6 py-1 text-right border-right"><strong>Course code</strong></div>
+              <div class="col-6 py-1">{{course.code}}</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-6 py-1 text-right border-right"><strong>Maximum places</strong></div>
+              <div class="col-6 py-1">{{course.maximumPlaces}}</div>
+            </div>
+            <div class="row border-bottom">
+              <div class="col-6 py-1 text-right border-right"><strong>Available places</strong></div>
+              <div class="col-6 py-1">{{course.availablePlaces}}</div>
+            </div>
+            <div class="row">
+              <div class="col-6 py-1 text-right border-right"><strong>Teacher</strong></div>
+              <div class="col-6 py-1">{{course.teacher.user.firstname}} {{course.teacher.user.lastname}}</div>
+            </div>
+          </div>
+          <button *ngIf="roles.includes('ROLE_ADMIN')" (click)="delete(course)" class="btn btn-danger px-4 mx-auto mb-4">Delete</button>
+          <button *ngIf="!roles.includes('ROLE_TEACHER') && !roles.includes('ROLE_ADMIN') " (click)="join(course)" class="btn btn-primary px-4 mx-auto mb-4">Join Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

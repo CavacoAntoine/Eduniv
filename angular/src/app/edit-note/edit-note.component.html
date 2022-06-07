@@ -1,0 +1,76 @@
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+    <h3 class="display-3 font-weight-bold text-white">Edit grade</h3>
+    <div class="d-inline-flex text-white">
+      <p class="m-0"><a class="text-white" href="">Home</a></p>
+      <p class="m-0 px-2">/</p>
+      <p class="m-0"><a class="text-white" routerLink="/teacherCourses">My Courses</a></p>
+      <p class="m-0 px-2">/</p>
+      <p class="m-0"><a class="text-white" [routerLink]="['/manageCourse',course.code]">Manage Courses</a></p>
+      <p class="m-0 px-2">/</p>
+      <p class="m-0">Edit grade</p>
+    </div>
+  </div>
+</div>
+<!-- Header End -->
+
+<div class="container-fluid pt-5">
+  <div class="container">
+    <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-lg-6 mb-5">
+          <div class="form-group">
+            <label for="student">Student</label>
+            <input id="student" type="text" class="form-control" name="student" [(ngModel)]="student.user.username" required disabled />
+          </div>
+          <div class="form-group">
+            <label for="course">Course</label>
+            <input id="course" type="text" class="form-control" name="course" [(ngModel)]="course.code" required disabled/>
+          </div>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input id="title" type="text" class="form-control" name="title" [(ngModel)]="grade.title" #title="ngModel"
+                   required />
+            <div *ngIf="f.submitted && title.invalid">
+              <div *ngIf="['title.errors?.required']">Title is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input id="date" type="date" [max]=5 class="form-control" name="date" [(ngModel)]="grade.date" #date="ngModel"
+                   required />
+            <div *ngIf="f.submitted && date.invalid">
+              <div *ngIf="['date.errors?.required']">Date is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-5">
+          <div class="form-group">
+            <label for="grade">Grade</label>
+            <input id="grade" type="number" [max]=5 class="form-control" name="grade" [(ngModel)]="grade.grade" #note="ngModel"
+                   required />
+            <div *ngIf="f.submitted && note.invalid">
+              <div *ngIf="['note.errors?.required']">Grade is required</div>
+              <div *ngIf="['note.errors?']">Max value is 5</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea rows="6" id="description" type="text" class="form-control" name="description" [(ngModel)]="grade.description" #description="ngModel"
+                      required></textarea>
+            <div *ngIf="f.submitted && description.invalid">
+              <div *ngIf="['description.errors?.required']">Description is required</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary px-4 mx-auto mb-4">Edit grade</button>
+        <div *ngIf="f.submitted && isGradeFailed" class="alert alert-warning">
+          Editing grade failed!<br/>{{errorMessage}}
+        </div>
+      </div>
+    </form>
+    <button class="btn btn-secondary px-4 mx-auto mb-4 " [routerLink]="['/manageCourse',course.code]">Cancel</button>
+  </div>
+</div>
+

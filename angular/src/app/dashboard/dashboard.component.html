@@ -1,0 +1,19 @@
+<!-- Header Start -->
+<div class="container-fluid bg-primary px-0 px-md-5">
+  <div class="row align-items-center px-3">
+    <div class="col-lg-6 text-center text-lg-left">
+      <h4 class="text-white mb-4 mt-5 mt-lg-0">A new way to teach</h4>
+      <h1 class="display-3 font-weight-bold text-white">Welcome to Eduniv</h1>
+      <p class="text-white mb-4">Student or teacher access and manage your lessons easily</p>
+      <button *ngIf="authority.length >= 1" [routerLink]="['/account']" class="btn btn-secondary mt-1 py-3 px-5">Account</button>
+      <button *ngIf="authority.length < 1" [routerLink]="['/auth/login']" class="btn btn-secondary mt-1 py-3 px-5">Login</button>
+
+    </div>
+    <div class="col-lg-6 text-center text-lg-right">
+      <img class="img-fluid mt-5" src="assets/header.png" alt="">
+    </div>
+  </div>
+</div>
+<!-- Header End -->
+
+

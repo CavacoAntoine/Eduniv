@@ -1,0 +1,40 @@
+<!-- Header Start -->
+<div class="container-fluid bg-primary mb-5">
+  <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
+    <h3 class="display-3 font-weight-bold text-white">Manage course</h3>
+    <div class="d-inline-flex text-white">
+      <p class="m-0"><a class="text-white" href="">Home</a></p>
+      <p class="m-0 px-2">/</p>
+      <p class="m-0"><a class="text-white" routerLink="/teacherCourses">My Courses</a></p>
+      <p class="m-0 px-2">/</p>
+      <p class="m-0">Manage course</p>
+    </div>
+  </div>
+</div>
+<!-- Header End -->
+
+<div class="container-fluid pt-5">
+  <div class="container">
+    <label for="search">Find a student with the search bar</label>
+    <input type="text" class="form-control mb-3" id="search" placeholder="Looking for someone in the course ?" (keyup)="search($event)"/>
+    <div class="row">
+      <div *ngFor="let student of studentSearchList" class="col-lg-4 mb-5">
+        <div class="card border-0 bg-light shadow-sm pb-2">
+          <div class="card-body text-center">
+            <h4 class="card-title">{{student.user.firstname}} {{student.user.lastname}}</h4>
+            <p class="card-text">{{student.user.username}}</p>
+          </div>
+          <div class="card-footer bg-transparent py-4 px-5">
+            <div *ngFor="let grade of studentGrades.get(student.id)" class="row border-bottom">
+              <div class="col-6 py-1 text-right border-right"><strong>{{grade.title}}</strong></div>
+              <div class="col-6 py-1">{{grade.grade}}</div>
+              <div class="col-6 py-1"><button [routerLink]="['/editNote']" [state]="{student: student, grade: grade, course: course}" class="btn btn-secondary" >Edit</button></div>
+              <div class="col-6 py-1"><button (click)="deleteGrade(grade, student)" class="btn btn-danger" >Delete</button></div>
+            </div>
+          </div>
+          <button [routerLink]="['/addNote', course.code, student.id]" class="btn btn-primary px-4 mx-auto mb-4">Add note</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
